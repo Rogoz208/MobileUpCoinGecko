@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -66,6 +68,10 @@ dependencies {
     //  Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
+
+    //  Dagger-Hilt
+    implementation(libs.dagger.hilt.core)
+    ksp(libs.dagger.hilt.compiler)
 
     //  Tests/Debug
     testImplementation(libs.junit)
