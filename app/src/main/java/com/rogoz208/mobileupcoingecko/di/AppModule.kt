@@ -2,6 +2,8 @@ package com.rogoz208.mobileupcoingecko.di
 
 import com.rogoz208.mobileupcoingecko.common.Constants
 import com.rogoz208.mobileupcoingecko.data.remote.CoinGeckoApi
+import com.rogoz208.mobileupcoingecko.data.repos.CoinRepositoryImpl
+import com.rogoz208.mobileupcoingecko.domain.repos.CoinRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +24,11 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CoinGeckoApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoinRepository(api: CoinGeckoApi): CoinRepository {
+        return CoinRepositoryImpl(api)
     }
 }

@@ -1,6 +1,7 @@
 package com.rogoz208.mobileupcoingecko.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import com.rogoz208.mobileupcoingecko.domain.model.CoinDetails
 
 data class CoinDetailsDTO(
     @SerializedName("categories")
@@ -16,3 +17,14 @@ data class CoinDetailsDTO(
     @SerializedName("symbol")
     val symbol: String
 )
+
+fun CoinDetailsDTO.toCoinDetails(): CoinDetails {
+    return CoinDetails(
+        id = id,
+        name = name,
+        image = image,
+        symbol = symbol,
+        description = description,
+        categories = categories
+    )
+}
