@@ -81,6 +81,10 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
+    //  Coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+
     //  Tests/Debug
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
