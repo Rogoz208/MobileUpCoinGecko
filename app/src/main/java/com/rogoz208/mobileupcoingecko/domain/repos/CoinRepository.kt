@@ -5,7 +5,7 @@ import com.rogoz208.mobileupcoingecko.data.remote.dto.CoinDetailsDTO
 
 interface CoinRepository {
 
-    suspend fun getCoins(): List<CoinDTO>
+    suspend fun getCoins(currency: String): List<CoinDTO>
 
     suspend fun getCoinDetailsById(coinId: String): CoinDetailsDTO
 }

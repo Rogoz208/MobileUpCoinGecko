@@ -1,6 +1,6 @@
 package com.rogoz208.mobileupcoingecko.di
 
-import com.rogoz208.mobileupcoingecko.common.Constants
+import com.rogoz208.mobileupcoingecko.BuildConfig
 import com.rogoz208.mobileupcoingecko.data.remote.CoinGeckoApi
 import com.rogoz208.mobileupcoingecko.data.repos.CoinRepositoryImpl
 import com.rogoz208.mobileupcoingecko.domain.repos.CoinRepository
@@ -8,8 +8,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
 
 @Module
@@ -18,13 +18,23 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCoinGeckoApi(): CoinGeckoApi {
-        return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+    fun provideHttpClient(): OkHttpClient? = if (BuildConfig.DEBUG) {
+        val logging = HttpLoggingInterceptor()
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
+        OkHttpClient.Builder()
+            .addInterceptor(logging)
             .build()
-            .create(CoinGeckoApi::class.java)
+    } else {
+        null
     }
+
+    @Provides
+    @Singleton
+    fun provideCoinGeckoApi(okHttpClient: OkHttpClient?): CoinGeckoApi = CoinGeckoApi(
+        baseUrl = BuildConfig.COIN_GECKO_API_BASE_URL,
+        apiKey = BuildConfig.COIN_GECKO_API_KEY,
+        okHttpClient = okHttpClient
+    )
 
     @Provides
     @Singleton

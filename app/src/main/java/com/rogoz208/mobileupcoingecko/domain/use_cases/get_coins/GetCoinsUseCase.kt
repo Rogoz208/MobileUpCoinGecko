@@ -13,10 +13,10 @@ class GetCoinsUseCase @Inject constructor(
     private val repo: CoinRepository
 ) {
 
-    operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
+    operator fun invoke(currency: String): Flow<Resource<List<Coin>>> = flow {
         try {
             emit(Resource.Loading())
-            val coins = repo.getCoins().map { it.toCoin() }
+            val coins = repo.getCoins(currency).map { it.toCoin() }
             emit(Resource.Success(coins))
         } catch (e: retrofit2.HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))

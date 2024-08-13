@@ -10,8 +10,8 @@ class CoinRepositoryImpl @Inject constructor(
     private val api: CoinGeckoApi
 ) : CoinRepository {
 
-    override suspend fun getCoins(): List<CoinDTO> {
-        return api.getCoins()
+    override suspend fun getCoins(currency: String): List<CoinDTO> {
+        return api.getCoins(currency)
     }
 
     override suspend fun getCoinDetailsById(coinId: String): CoinDetailsDTO {
