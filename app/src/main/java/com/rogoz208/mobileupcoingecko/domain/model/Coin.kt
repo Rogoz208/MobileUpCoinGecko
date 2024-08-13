@@ -1,7 +1,7 @@
 package com.rogoz208.mobileupcoingecko.domain.model
 
 data class Coin(
-    val currentPrice: Int,
+    val currentPrice: Double,
     val id: String,
     val image: String,
     val name: String,

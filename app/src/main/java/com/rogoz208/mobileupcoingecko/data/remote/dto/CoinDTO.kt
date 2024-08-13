@@ -5,7 +5,7 @@ import com.rogoz208.mobileupcoingecko.domain.model.Coin
 
 data class CoinDTO(
     @SerializedName("current_price")
-    val currentPrice: Int,
+    val currentPrice: Double,
     @SerializedName("id")
     val id: String,
     @SerializedName("image")

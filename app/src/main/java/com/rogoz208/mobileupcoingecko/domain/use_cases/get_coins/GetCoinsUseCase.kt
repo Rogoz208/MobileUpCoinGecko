@@ -1,6 +1,7 @@
 package com.rogoz208.mobileupcoingecko.domain.use_cases.get_coins
 
 import com.rogoz208.mobileupcoingecko.common.Resource
+import com.rogoz208.mobileupcoingecko.data.remote.dto.Currency
 import com.rogoz208.mobileupcoingecko.data.remote.dto.toCoin
 import com.rogoz208.mobileupcoingecko.domain.model.Coin
 import com.rogoz208.mobileupcoingecko.domain.repos.CoinRepository
@@ -13,10 +14,10 @@ class GetCoinsUseCase @Inject constructor(
     private val repo: CoinRepository
 ) {
 
-    operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
+    operator fun invoke(currency: Currency): Flow<Resource<List<Coin>>> = flow {
         try {
             emit(Resource.Loading())
-            val coins = repo.getCoins().map { it.toCoin() }
+            val coins = repo.getCoins(currency).map { it.toCoin() }
             emit(Resource.Success(coins))
         } catch (e: retrofit2.HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred"))
