@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rogoz208.mobileupcoingecko.presentation.coin_details.CoinDetailsScreen
 import com.rogoz208.mobileupcoingecko.presentation.coins_list.CoinsListScreen
 import com.rogoz208.mobileupcoingecko.presentation.ui.theme.MobileUpCoinGeckoTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             MobileUpCoinGeckoTheme {
                 Navigation()
@@ -35,6 +35,11 @@ class MainActivity : ComponentActivity() {
                 route = Screen.CoinListScreen.route
             ) {
                 CoinsListScreen(navController)
+            }
+            composable(
+                route = Screen.CoinDetailScreen.route + "/{coinId}"
+            ) {
+                CoinDetailsScreen(navController)
             }
         }
     }
