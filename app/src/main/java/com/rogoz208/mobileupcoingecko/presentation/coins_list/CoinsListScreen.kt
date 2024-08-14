@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.rogoz208.mobileupcoingecko.R
 import com.rogoz208.mobileupcoingecko.data.remote.dto.Currency
 import com.rogoz208.mobileupcoingecko.data.remote.dto.names
+import com.rogoz208.mobileupcoingecko.presentation.Screen
 import com.rogoz208.mobileupcoingecko.presentation.coins_list.components.CoinListItem
 import com.rogoz208.mobileupcoingecko.presentation.coins_list.components.ErrorMessageWithRetryButton
 import com.rogoz208.mobileupcoingecko.presentation.coins_list.components.TopAppBarWithChips
@@ -46,8 +47,8 @@ fun CoinsListScreen(
         ) {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state.coins) { coin ->
-                    CoinListItem(coin = coin, currency = state.currency) {
-                        TODO("Open details screen")
+                    CoinListItem(coin = coin, currency = state.currency) { item ->
+                        navController.navigate(Screen.CoinDetailScreen.route + "/${item.id}")
                     }
                 }
             }
